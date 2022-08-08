@@ -7,9 +7,7 @@ ENV NVIDIA_DRIVER_CAPABILITIES ${NVIDIA_DRIVER_CAPABILITIES:+$NVIDIA_DRIVER_CAPA
 ENV DEBIAN_FRONTEND noninteractive
 RUN apt-key del 7fa2af80 
 RUN apt-key adv --fetch-keys https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/3bf863cc.pub
-
 RUN apt-key adv --fetch-keys https://developer.download.nvidia.com/compute/machine-learning/repos/ubuntu2004/x86_64/7fa2af80.pub
-
 RUN apt-get update && apt-get install -y --no-install-recommends \
         sudo \
         apt-utils \
@@ -39,34 +37,31 @@ RUN apt update && apt-get install -y --no-install-recommends \
         ros-foxy-desktop \
         ros-foxy-ros-base \
         ros-foxy-rmw-cyclonedds-cpp \
+        python3-rosdep
         && \
     apt-get clean && \
-    rm -rf /var/lib/apt/lists/*
-    
-SHELL ["/bin/bash", "-c"]   
-
-RUN source /opt/ros/foxy/setup.bash && \
-    apt update && apt install -y python3-rosdep
+    rm -rf /var/lib/apt/lists/*  
     
 RUN rosdep init
 RUN rosdep update
 
 # install Git LFS
 RUN curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh | bash && \
-    apt-get install git-lfs && \
-    git lfs install && \
+        apt-get install git-lfs && \
+        git lfs install && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
-
+SHELL ["/bin/bash", "-c"] 
 # install Autoware Auto
-RUN git clone https://gitlab.com/autowarefoundation/autoware.auto/AutowareAuto.git -b master && \
-    cd AutowareAuto && \
-    git lfs pull --exclude="" --include="*" && \ 
-    sudo apt-get update && \
-    vcs import < autoware.auto..repos && \
-    rosdep install -y -i --from-paths src && \
-    sudo mkdir /opt/AutowareAuto && \
-    sudo chmod 777 /opt/AutowareAuto && \
-    colcon build --install-base /opt/AutowareAuto --cmake-args -DCMAKE_BUILD_TYPE=Release && \
+RUN source /opt/ros/foxy/setup.bash && \
+        git clone https://gitlab.com/autowarefoundation/autoware.auto/AutowareAuto.git -b master && \
+        cd AutowareAuto && \
+        git lfs pull --exclude="" --include="*" && \ 
+        sudo apt-get update && \
+        vcs import < autoware.auto..repos && \
+        rosdep install -y -i --from-paths src && \
+        sudo mkdir /opt/AutowareAuto && \
+        sudo chmod 777 /opt/AutowareAuto && \
+        colcon build --install-base /opt/AutowareAuto --cmake-args -DCMAKE_BUILD_TYPE=Release && \
     sudo apt-get clean && \ 
     sudo rm -rf /var/lib/apt/lists/* 
