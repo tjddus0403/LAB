@@ -20,11 +20,10 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
         
-RUN pip3 install -U colcon-common-extensions \
-        vcstool \
-        
+RUN pip3 install -U colcon-common-extensions vcstool
       
-RUN apt-get update && apt install software-properties-common \
+RUN apt-get update && apt install -y --no-install-recommends \
+        software-properties-common \
         curl \
         gnupg2 \
         lsb-release \
@@ -42,12 +41,11 @@ RUN apt update && apt-get install -y --no-install-recommends \
         && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
-    
+SHELL ["/bin/bash", "-c"]   
 RUN source /opt/ros/foxy/setup.bash && \
     apt update && apt install -y python3-rosdep && \
 RUN rosdep init
 RUN rosdep update
-SHELL ["/bin/bash", "-c"] 
 
 # install Git LFS
 RUN curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh | bash && \
