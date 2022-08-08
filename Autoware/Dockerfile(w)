@@ -5,8 +5,11 @@ ENV NVIDIA_DRIVER_CAPABILITIES ${NVIDIA_DRIVER_CAPABILITIES:+$NVIDIA_DRIVER_CAPA
 
 # install package
 ENV DEBIAN_FRONTEND noninteractive
-RUN apt-key del 7fa2af80
+RUN apt-key del 7fa2af80 #Remove the outdated signing key
 RUN apt-key adv --fetch-keys https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/3bf863cc.pub
+#Manually install the new signing key
+#Install the new cuda-keyring package
+#Replace $distro/$arch -> new cuda-keyring package : ubuntu2004/x86_64
 RUN apt-key adv --fetch-keys https://developer.download.nvidia.com/compute/machine-learning/repos/ubuntu2004/x86_64/7fa2af80.pub
 #위 세 줄의 RUN 코드는 NVIDIA GPG 관련 오류 해결
 #Updating the CUDA Linux GPG Repository Key
