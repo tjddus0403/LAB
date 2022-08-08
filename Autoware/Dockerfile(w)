@@ -59,7 +59,8 @@ SHELL ["/bin/bash", "-c"]
 RUN source /opt/ros/foxy/setup.bash && \
     git clone https://gitlab.com/autowarefoundation/autoware.auto/AutowareAuto.git -b master && \
     cd AutowareAuto && \
-    git lfs pull --exclude="" --include="*" && \
+    git lfs pull --exclude="" --include="*" && \ #lfs가 큰용량의 파일을 가져오는데, 깃클론할 때 아직 가져오지 못한 큰 용량의 파일들을 모두 가져옴
+    #우리가 사용해야했던 .pcd 파일이 이 과정이 없어서 가져와지지 않았던 것으로 추정
     sudo apt-get update && \
     vcs import < autoware.auto.$ROS_DISTRO.repos && \
     rosdep install -y -i --from-paths src && \
