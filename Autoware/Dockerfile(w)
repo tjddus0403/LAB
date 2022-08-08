@@ -18,14 +18,44 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
         sudo \
         apt-utils \
         git \
-        software-properties-common \
-        curl \
-        gnupg2 \
-        lsb-release \
-        tilix \
+        cmake \
+        python3-pip \
         && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
+        
+RUN pip3 install -U colcon-common-extensions \
+        vcstool \
+        
+# install ROS2 foxy (ROS2 foxy Ubuntu(Debian) Installation - 공식문서)        
+RUN apt-get update && apt install software-properties-common \
+        curl \
+        gnupg2 \
+        lsb-release \
+        && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
+
+RUN curl -sSL https://raw.githubusercontent.com/ros/rosdistro/master/ros.key  -o /usr/share/keyrings/ros-archive-keyring.gpg
+RUN echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/ros-archive-keyring.gpg] http://packages.ros.org/ros2/ubuntu $(lsb_release -cs) main" | tee /etc/apt/sources.list.d/ros2.list > /dev/null
+#echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/ros-archive-keyring.gpg] http://packages.ros.org/ros2/ubuntu $(source /etc/os-release && echo $UBUNTU_CODENAME) main" | sudo tee /etc/apt/sources.list.d/ros2.list > /dev/null
+#위가 공식문서 -> 다음과 같은 에러
+# /bin/sh: 1: source: not found
+# E: Malformed entry 1 in list file /etc/apt/sources.list.d/ros2.list (Component)
+# E: The list of sources could not be read.
+RUN apt update && apt-get install -y --no-install-recommends \
+        build-essential \
+        ros-foxy-desktop \
+        ros-foxy-ros-base \
+        && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
+    
+RUN source /opt/ros/foxy/setup.bash && \
+    apt update && apt install -y python3-rosdep && \
+RUN rosdep init
+RUN rosdep update
+SHELL ["/bin/bash", "-c"] #얘는 어디있어야할까.....
 
 # install Git LFS
 RUN curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh | bash && \
@@ -34,32 +64,8 @@ RUN curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.d
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
-# install ROS2 foxy (ROS2 foxy Ubuntu(Debian) Installation - 공식문서)
-RUN curl -sSL https://raw.githubusercontent.com/ros/rosdistro/master/ros.key  -o /usr/share/keyrings/ros-archive-keyring.gpg
-RUN echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/ros-archive-keyring.gpg] http://packages.ros.org/ros2/ubuntu $(lsb_release -cs) main" | tee /etc/apt/sources.list.d/ros2.list > /dev/null
-#echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/ros-archive-keyring.gpg] http://packages.ros.org/ros2/ubuntu $(source /etc/os-release && echo $UBUNTU_CODENAME) main" | sudo tee /etc/apt/sources.list.d/ros2.list > /dev/null
-#위가 공식문서 -> 다음과 같은 에러
-# /bin/sh: 1: source: not found
-# E: Malformed entry 1 in list file /etc/apt/sources.list.d/ros2.list (Component)
-# E: The list of sources could not be read.
-RUN apt-get update && apt-get install -y --no-install-recommends \
-        build-essential \
-        ros-foxy-ros-base \
-        python3-colcon-common-extensions \
-        python3-pip \
-        python3-vcstool \
-        python3-rosdep \
-        && \
-    apt-get clean && \
-    rm -rf /var/lib/apt/lists/*
-RUN rosdep init
-RUN rosdep update
-SHELL ["/bin/bash", "-c"] 
-
-RUN sudo apt-get install ros-foxy-rqt*
 # install Autoware Auto
-RUN source /opt/ros/foxy/setup.bash && \
-    git clone https://gitlab.com/autowarefoundation/autoware.auto/AutowareAuto.git -b master && \
+RUN git clone https://gitlab.com/autowarefoundation/autoware.auto/AutowareAuto.git -b master && \
     cd AutowareAuto && \
     git lfs pull --exclude="" --include="*" && \ #lfs가 큰용량의 파일을 가져오는데, 깃클론할 때 아직 가져오지 못한 큰 용량의 파일들을 모두 가져옴
     #우리가 사용해야했던 .pcd 파일이 이 과정이 없어서 가져와지지 않았던 것으로 추정
