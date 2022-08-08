@@ -58,7 +58,7 @@ RUN source /opt/ros/foxy/setup.bash && \
         cd AutowareAuto && \
         git lfs pull --exclude="" --include="*" && \ 
         sudo apt-get update && \
-        vcs import < autoware.auto..repos && \
+        vcs import < autoware.auto.foxy.repos && \
         rosdep install -y -i --from-paths src && \
         sudo mkdir /opt/AutowareAuto && \
         sudo chmod 777 /opt/AutowareAuto && \
