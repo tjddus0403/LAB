@@ -30,7 +30,7 @@ ros2 launch autoware_demos localization.launch.py
 sudo apt install libboost-all-dev
 source /opt/ros/foxy/setup.bash
 sudo apt update
-sudo apt install ros-foxy-lgsvl-bridge
+sudo apt install ros-foxy-lgsvl-bridgehttps://autowarefoundation.gitlab.io/autoware.auto/AutowareAuto/avpdemo.html
 
 git clone https://github.com/lgsvl/ros2-lgsvl-bridge.git
 source /opt/ros/foxy/setup.bash
