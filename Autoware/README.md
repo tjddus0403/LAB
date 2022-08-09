@@ -68,6 +68,7 @@ Download 폴더에서 zip파일 Extract here
 - Bridge: ROS2  
 - Autopilot: Autoware.Auto (Apex.AI)  
 - Connection: localhost:9090  
+
 simulation 생성 후, Run simulation  
 *****아직 simulation start button 누르지 말고 기다릴 것*****
 
