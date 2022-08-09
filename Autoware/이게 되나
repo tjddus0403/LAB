@@ -68,6 +68,6 @@ RUN source /opt/ros/foxy/setup.bash && \
     sudo apt-get clean && \ 
     sudo rm -rf /var/lib/apt/lists/* 
     
-RUN cd ~
-RUN source /opt/ros/foxy/setup.bash
-RUN source /opt/AutowareAuto/setup.bash
+RUN echo "source /opt/ros/foxy/setup.bash" >> ~/.bashrc && \
+    echo "source /opt/AutowareAuto/setup.bash" >> ~/.bashrc && \
+    source ~/.bashrc
