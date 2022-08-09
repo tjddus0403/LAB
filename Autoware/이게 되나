@@ -3,7 +3,7 @@ FROM nvidia/cuda:11.1-cudnn8-devel-ubuntu20.04
 ENV NVIDIA_VISIBLE_DEVICES ${NVIDIA_VISIBLE_DEVICES:-all} 
 ENV NVIDIA_DRIVER_CAPABILITIES ${NVIDIA_DRIVER_CAPABILITIES:+$NVIDIA_DRIVER_CAPABILITIES,}graphics
 
-SHELL ["/bin/bash", "-c"] 
+SHELL ["/bin/bash"] 
 # install package
 ENV DEBIAN_FRONTEND noninteractive
 RUN apt-key del 7fa2af80 
