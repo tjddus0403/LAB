@@ -46,11 +46,7 @@ RUN apt update && apt-get install -y --no-install-recommends \
     
 RUN rosdep init
 RUN rosdep update
-RUN echo "source /opt/ros/foxy/setup.bash" >> ~/.bashrc && \
-34
-    echo "source /opt/AutowareAuto/setup.bash" >> ~/.bashrc && \
-35
-    source ~/.bashrc
+
 # install Git LFS
 RUN curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh | bash && \
     apt-get install git-lfs && \
