@@ -1,4 +1,4 @@
-Installation Autoware.Auto using Docker
+#Installation Autoware.Auto using Docker
 
 sudo apt update
 
@@ -47,20 +47,20 @@ lgsvl_bridge
 
 ### running svl simulator (host terminal)
 ##### install svl simulator
-#####https://www.svlsimulator.com/ 에 접속하여 Download for Linux
-#####Download 폴더에서 zip파일 Extract here
+https://www.svlsimulator.com/ 에 접속하여 Download for Linux
+Download 폴더에서 zip파일 Extract here
 cd ~/Download/svlsimulator-linux64-2021.3
 ./simulator
 
-#######계정과 cluster 생성 후, 아래의 조건으로 simulation setup
-####Runtime Template: Random Traffic
-####Maps: AutonomouStuff
-####Vehicle Asset: Lexus2016RXHybrid
-####Sensor configuration: Autoware.Auto
-####Bridge: ROS2
-####Autopilot: Autoware.Auto (Apex.AI)
-####Connection: localhost:9090 (In the case of the Simulator and Autoware.Auto running on the same machine.)
-####simulation 생성 후, Run simulation
+계정과 cluster 생성 후, 아래의 조건으로 simulation setup
+Runtime Template: Random Traffic
+Maps: AutonomouStuff
+Vehicle Asset: Lexus2016RXHybrid
+Sensor configuration: Autoware.Auto
+Bridge: ROS2
+Autopilot: Autoware.Auto (Apex.AI)
+Connection: localhost:9090 (In the case of the Simulator and Autoware.Auto running on the same machine.)
+simulation 생성 후, Run simulation
 ####*****아직 simulation start button 누르지 말고 기다릴 것*****
 
 ### running rviz (In container, terminal 2)
