@@ -3,6 +3,7 @@ FROM nvidia/cuda:11.1-cudnn8-devel-ubuntu20.04
 ENV NVIDIA_VISIBLE_DEVICES ${NVIDIA_VISIBLE_DEVICES:-all} 
 ENV NVIDIA_DRIVER_CAPABILITIES ${NVIDIA_DRIVER_CAPABILITIES:+$NVIDIA_DRIVER_CAPABILITIES,}graphics
 
+SHELL ["/bin/bash", "-c"] 
 # install package
 ENV DEBIAN_FRONTEND noninteractive
 RUN apt-key del 7fa2af80 
@@ -47,21 +48,21 @@ RUN rosdep update
 
 # install Git LFS
 RUN curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh | bash && \
-        apt-get install git-lfs && \
-        git lfs install && \
+    apt-get install git-lfs && \
+    git lfs install && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
-SHELL ["/bin/bash", "-c"] 
+    
 # install Autoware Auto
 RUN source /opt/ros/foxy/setup.bash && \
-        git clone https://gitlab.com/autowarefoundation/autoware.auto/AutowareAuto.git -b master && \
-        cd AutowareAuto && \
-        git lfs pull --exclude="" --include="*" && \ 
-        sudo apt-get update && \
-        vcs import < autoware.auto.foxy.repos && \
-        rosdep install -y -i --from-paths src && \
-        sudo mkdir /opt/AutowareAuto && \
-        sudo chmod 777 /opt/AutowareAuto && \
-        colcon build --install-base /opt/AutowareAuto --cmake-args -DCMAKE_BUILD_TYPE=Release && \
+    git clone https://gitlab.com/autowarefoundation/autoware.auto/AutowareAuto.git -b master && \
+    cd AutowareAuto && \
+    git lfs pull --exclude="" --include="*" && \ 
+    sudo apt-get update && \
+    vcs import < autoware.auto.foxy.repos && \
+    rosdep install -y -i --from-paths src && \
+    sudo mkdir /opt/AutowareAuto && \
+    sudo chmod 777 /opt/AutowareAuto && \
+    colcon build --install-base /opt/AutowareAuto --cmake-args -DCMAKE_BUILD_TYPE=Release && \
     sudo apt-get clean && \ 
     sudo rm -rf /var/lib/apt/lists/* 
