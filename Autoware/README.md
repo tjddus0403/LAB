@@ -1,32 +1,32 @@
 # Installation Autoware.Auto using Docker (W/O ADE)
 
+#### Install docker
+''' sudo apt update && sudo apt install docker.io '''
+
+#### Create Docker image
+'''
 sudo apt update
-
-## Install docker
-sudo apt install docker.io
-
-## git clone ..
 git clone https://github.com/tjddus0403/LAB/tree/main/Autoware
-
 cd Autoware
-
 docker build -t autoware.auto:tjddus .
+'''
 
-## 잘 기다려 줍니다.... 인내심을 가지고,,^^
+#### Check the Docker image
+''' docker images '''
 
-## check the docker image
-docker images
+#### Run container
+''' ./run.sh autoware.auto:tjddus '''
 
-## run container
-./run.sh autoware.auto:tjddus
-
-## localization demo using rosbag
+#### Localization demo using rosbag
+'''
 cd ~
 curl https://autoware-auto.s3.us-east-2.amazonaws.com/rosbag2/rosbag2-astuff-1-lidar-only.tar.gz | tar xz
-ros2 launch autoware_demos localization.launch.py 
+ros2 launch autoware_demos localization.launch.py
+'''
 
-## AVP (Autonomous Valet Parking) demo
-### install ros2-lgsvl-bridge
+#### AVP (Autonomous Valet Parking) demo
+###### 1. install ros2-lgsvl-bridge
+'''
 sudo apt install libboost-all-dev
 source /opt/ros/foxy/setup.bash
 sudo apt update
@@ -36,7 +36,7 @@ git clone https://github.com/lgsvl/ros2-lgsvl-bridge.git
 source /opt/ros/foxy/setup.bash
 cd ros2-lgsvl-bridge
 git checkout foxy-devel
-
+'''
 ### build ros2-lgsvl-bridge
 colcon build --cmake-args '-DCMAKE_BUILD_TYPE=Release'
 
@@ -108,9 +108,9 @@ pose : {
 ### 
 
 
-참고
-https://docs.ros.org/en/foxy/Installation/Ubuntu-Install-Debians.html
-https://autowarefoundation.gitlab.io/autoware.auto/AutowareAuto/installation-no-ade.html
-svlsimulator.com/docs/system-under-test/ros2-bridge/
-https://autowarefoundation.gitlab.io/autoware.auto/AutowareAuto/avpdemo.html
-https://autowarefoundation.gitlab.io/autoware.auto/AutowareAuto/ndt-initialization.html
+#### 참고
+##### https://docs.ros.org/en/foxy/Installation/Ubuntu-Install-Debians.html
+##### https://autowarefoundation.gitlab.io/autoware.auto/AutowareAuto/installation-no-ade.html
+##### svlsimulator.com/docs/system-under-test/ros2-bridge/
+##### https://autowarefoundation.gitlab.io/autoware.auto/AutowareAuto/avpdemo.html
+##### https://autowarefoundation.gitlab.io/autoware.auto/AutowareAuto/ndt-initialization.html
