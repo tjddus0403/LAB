@@ -66,3 +66,7 @@ RUN source /opt/ros/foxy/setup.bash && \
     colcon build --install-base /opt/AutowareAuto --cmake-args -DCMAKE_BUILD_TYPE=Release && \
     sudo apt-get clean && \ 
     sudo rm -rf /var/lib/apt/lists/* 
+    
+RUN cd ~
+RUN source /opt/ros/foxy/setup.bash
+RUN source /opt/AutowareAuto/setup.bash
