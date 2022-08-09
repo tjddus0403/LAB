@@ -106,3 +106,11 @@ pose : {
 }}
 "
 ### 
+
+
+참고
+https://docs.ros.org/en/foxy/Installation/Ubuntu-Install-Debians.html
+https://autowarefoundation.gitlab.io/autoware.auto/AutowareAuto/installation-no-ade.html
+svlsimulator.com/docs/system-under-test/ros2-bridge/
+https://autowarefoundation.gitlab.io/autoware.auto/AutowareAuto/avpdemo.html
+https://autowarefoundation.gitlab.io/autoware.auto/AutowareAuto/ndt-initialization.html
