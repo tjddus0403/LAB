@@ -1,42 +1,37 @@
 # Installation Autoware.Auto using Docker (W/O ADE)
 
 #### Install docker
-''' sudo apt update && sudo apt install docker.io '''
+> sudo apt update && sudo apt install docker.io 
 
 #### Create Docker image
-'''
-sudo apt update
-git clone https://github.com/tjddus0403/LAB/tree/main/Autoware
-cd Autoware
-docker build -t autoware.auto:tjddus .
-'''
+> sudo apt update
+> git clone https://github.com/tjddus0403/LAB/tree/main/Autoware
+> cd Autoware
+> docker build -t autoware.auto:tjddus .
 
 #### Check the Docker image
-''' docker images '''
+> docker images
 
 #### Run container
-''' ./run.sh autoware.auto:tjddus '''
+> ./run.sh autoware.auto:tjddus
 
 #### Localization demo using rosbag
-'''
-cd ~
-curl https://autoware-auto.s3.us-east-2.amazonaws.com/rosbag2/rosbag2-astuff-1-lidar-only.tar.gz | tar xz
-ros2 launch autoware_demos localization.launch.py
-'''
+> cd ~
+> curl https://autoware-auto.s3.us-east-2.amazonaws.com/rosbag2/rosbag2-astuff-1-lidar-only.tar.gz | tar xz
+> ros2 launch autoware_demos localization.launch.py
 
 #### AVP (Autonomous Valet Parking) demo
 ###### 1. install ros2-lgsvl-bridge
-'''
-sudo apt install libboost-all-dev
-source /opt/ros/foxy/setup.bash
-sudo apt update
-sudo apt install ros-foxy-lgsvl-bridgehttps://autowarefoundation.gitlab.io/autoware.auto/AutowareAuto/avpdemo.html
+> sudo apt install libboost-all-dev
+> source /opt/ros/foxy/setup.bash
+> sudo apt update
+> sudo apt install ros-foxy-lgsvl-bridgehttps://autowarefoundation.gitlab.io/autoware.auto/AutowareAuto/avpdemo.html
 
-git clone https://github.com/lgsvl/ros2-lgsvl-bridge.git
-source /opt/ros/foxy/setup.bash
-cd ros2-lgsvl-bridge
-git checkout foxy-devel
-'''
+> git clone https://github.com/lgsvl/ros2-lgsvl-bridge.git
+> source /opt/ros/foxy/setup.bash
+> cd ros2-lgsvl-bridge
+> git checkout foxy-devel
+
 ### build ros2-lgsvl-bridge
 colcon build --cmake-args '-DCMAKE_BUILD_TYPE=Release'
 
