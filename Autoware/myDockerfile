@@ -37,7 +37,7 @@ RUN apt update && apt-get install -y --no-install-recommends \
         ros-foxy-desktop \
         ros-foxy-ros-base \
         ros-foxy-rmw-cyclonedds-cpp \
-        python3-rosdep
+        python3-rosdep \
         && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*  
