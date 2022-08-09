@@ -1,3 +1,2 @@
 # LAB
-
-##Installation AutowareAuto using Docker (W/O ADE)
+## Installation AutowareAuto using Docker (W/O ADE)
