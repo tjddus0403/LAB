@@ -65,7 +65,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 RUN rosdep init
-
+https://github.com/tjddus0403/LAB/edit/main/Autoware
 USER $USERNAME
 WORKDIR /home/$USERNAME
 RUN rosdep update
