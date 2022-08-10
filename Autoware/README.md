@@ -8,9 +8,9 @@
 
 > git clone https://github.com/tjddus0403/LAB/tree/main/Autoware  
 
-> cd Autoware  
+> cd ~  
 
-> docker build -t autoware.auto:tjddus .  
+> docker build -t autoware.auto:tjddus -f ~/LAB/Autoware/Dockerfile .  
 
 #### Check the Docker image
 > docker images
