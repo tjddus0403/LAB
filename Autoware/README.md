@@ -6,7 +6,7 @@
 #### Create Docker image
 > sudo apt update  
 
-> git clone https://github.com/tjddus0403/LAB/tree/main/Autoware  
+> git clone https://github.com/tjddus0403/LAB.git
 
 > cd ~  
 
@@ -16,6 +16,11 @@
 > docker images
 
 #### Run container
+> cd ~/LAB/Autoware
+
+> chmod +x run.sh
+
+
 > ./run.sh autoware.auto:tjddus
 
 #### Localization demo using rosbag
