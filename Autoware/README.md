@@ -33,7 +33,7 @@
 
 > sudo apt update
 
-> sudo apt install ros-foxy-lgsvl-bridgehttps://autowarefoundation.gitlab.io/autoware.auto/AutowareAuto/avpdemo.html
+> sudo apt install ros-foxy-lgsvl-bridge
 
 > git clone https://github.com/lgsvl/ros2-lgsvl-bridge.git
 
