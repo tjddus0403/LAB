@@ -4,20 +4,7 @@ ENV NVIDIA_VISIBLE_DEVICES ${NVIDIA_VISIBLE_DEVICES:-all}
 ENV NVIDIA_DRIVER_CAPABILITIES ${NVIDIA_DRIVER_CAPABILITIES:+$NVIDIA_DRIVER_CAPABILITIES,}graphics
 
 SHELL ["/bin/bash", "-c"] 
-
-ENV USERNAME autoware 
-ENV HOME /home/$USERNAME
-RUN useradd -m $USERNAME && \
-        echo "$USERNAME:$USERNAME" | chpasswd && \
-        usermod --shell /bin/bash $USERNAME && \
-        usermod -aG sudo $USERNAME && \
-        mkdir /etc/sudoers.d && \
-        echo "$USERNAME ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers.d/$USERNAME && \
-        chmod 0440 /etc/sudoers.d/$USERNAME && \
-        # Replace 1000 with your user/group id
-        usermod  --uid 1000 $USERNAME && \
-        groupmod --gid 1000 $USERNAME
-        
+      
 # install package
 ENV DEBIAN_FRONTEND noninteractive
 RUN apt-key del 7fa2af80 
@@ -59,10 +46,6 @@ RUN apt update && apt-get install -y --no-install-recommends \
     rm -rf /var/lib/apt/lists/*  
     
 RUN rosdep init
-
-USER $USERNAME
-WORKDIR /home/$USERNAME
-
 RUN rosdep update
 
 # install Git LFS
