@@ -23,7 +23,7 @@
 
 > curl https://autoware-auto.s3.us-east-2.amazonaws.com/rosbag2/rosbag2-astuff-1-lidar-only.tar.gz | tar xz  
 
-> ros2 launch autoware_demos localization.launch.py  
+> ros2 launch autoware_demos localization_rosbag.launch.py  
 
 #### AVP (Autonomous Valet Parking) demo
 ###### 1. install & build ros2-lgsvl-bridge
