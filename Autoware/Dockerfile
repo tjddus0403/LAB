@@ -3,6 +3,19 @@ FROM nvidia/cuda:11.1-cudnn8-devel-ubuntu20.04
 ENV NVIDIA_VISIBLE_DEVICES ${NVIDIA_VISIBLE_DEVICES:-all} 
 ENV NVIDIA_DRIVER_CAPABILITIES ${NVIDIA_DRIVER_CAPABILITIES:+$NVIDIA_DRIVER_CAPABILITIES,}graphics
 
+ENV USERNAME autoware 
+ENV HOME /home/$USERNAME
+RUN useradd -m $USERNAME && \
+        echo "$USERNAME:$USERNAME" | chpasswd && \
+        usermod --shell /bin/bash $USERNAME && \
+        usermod -aG sudo $USERNAME && \
+        mkdir /etc/sudoers.d && \
+        echo "$USERNAME ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers.d/$USERNAME && \
+        chmod 0440 /etc/sudoers.d/$USERNAME && \
+        # Replace 1000 with your user/group id
+        usermod  --uid 1000 $USERNAME && \
+        groupmod --gid 1000 $USERNAME
+        
 SHELL ["/bin/bash", "-c"] 
       
 # install package
@@ -31,7 +44,13 @@ RUN apt-get update && apt install -y --no-install-recommends \
         && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
-
+# install Git LFS
+RUN curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh | bash && \
+    apt-get install git-lfs && \
+    git lfs install && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
+    
 RUN curl -sSL https://raw.githubusercontent.com/ros/rosdistro/master/ros.key  -o /usr/share/keyrings/ros-archive-keyring.gpg
 RUN echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/ros-archive-keyring.gpg] http://packages.ros.org/ros2/ubuntu $(lsb_release -cs) main" | tee /etc/apt/sources.list.d/ros2.list > /dev/null
 
@@ -46,14 +65,9 @@ RUN apt update && apt-get install -y --no-install-recommends \
     rm -rf /var/lib/apt/lists/*  
     
 RUN rosdep init
+USER $USERNAME
+WORKDIR /home/$USERNAME
 RUN rosdep update
-
-# install Git LFS
-RUN curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh | bash && \
-    apt-get install git-lfs && \
-    git lfs install && \
-    apt-get clean && \
-    rm -rf /var/lib/apt/lists/*
     
 # install Autoware Auto
 RUN source /opt/ros/foxy/setup.bash && \
