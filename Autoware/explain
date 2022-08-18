@@ -77,7 +77,7 @@ USER $USERNAME
 WORKDIR /home/$USERNAME
 RUN rosdep update
     
-# AutowareAuto 설치 명령
+# AutowareAuto 설치
 RUN source /opt/ros/foxy/setup.bash && \
     git clone https://gitlab.com/autowarefoundation/autoware.auto/AutowareAuto.git -b master && \
     cd AutowareAuto && \
