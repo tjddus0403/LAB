@@ -21,7 +21,6 @@ RUN useradd -m $USERNAME && \
         
 SHELL ["/bin/bash", "-c"] 
 
-# install package
 ENV DEBIAN_FRONTEND noninteractive
 
 # NVIDIA GPG 관련 오류 해결 명령
