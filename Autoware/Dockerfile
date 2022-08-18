@@ -55,7 +55,6 @@ RUN curl -sSL https://raw.githubusercontent.com/ros/rosdistro/master/ros.key  -o
 RUN echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/ros-archive-keyring.gpg] http://packages.ros.org/ros2/ubuntu $(lsb_release -cs) main" | tee /etc/apt/sources.list.d/ros2.list > /dev/null
 
 RUN apt update && apt-get install -y --no-install-recommends \
-        #build-essential \
         ros-foxy-desktop \
         ros-foxy-ros-base \
         ros-foxy-rmw-cyclonedds-cpp \
