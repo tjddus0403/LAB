@@ -1,4 +1,6 @@
 FROM nvidia/cuda:11.1-cudnn8-devel-ubuntu20.04 
+# nvidia/cuda:11.7.1-cudnn8-devel-ubuntu20.04
+# https://hub.docker.com/r/nvidia/cuda 참고하여 버전 
 
 ENV NVIDIA_VISIBLE_DEVICES ${NVIDIA_VISIBLE_DEVICES:-all} 
 ENV NVIDIA_DRIVER_CAPABILITIES ${NVIDIA_DRIVER_CAPABILITIES:+$NVIDIA_DRIVER_CAPABILITIES,}graphics
